@@ -1,0 +1,33 @@
+@if (users.length == 0) {
+  <div class="alert alert-warning">No hay registros en el sistema.</div>
+  }@else {
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>email</th>
+        <th>Usuario</th>
+        <th>Eliminar</th>
+        <th>Editar</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (user of users; track $index) {
+      <tr>
+        <!-- <td>{{user.id}}</td> -->
+        <td>{{user.name}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.email}}</td>
+        <td>{{user.username}}</td>
+        <td>
+          <button class="btn btn-danger btn-sm" (click)="onRemoveUser(user.id)">Eliminar</button>
+        </td>
+        <td>
+          <button class="btn btn-info btn-sm" (click)="onSelectUser(user)">Editar</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  }

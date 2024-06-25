@@ -1,0 +1,22 @@
+<div class="container my-4">
+  <h3> {{titulo}}</h3>
+  <button
+  class="btn btn-primary btn-sm"
+  (click)="switchForm()">{{openShowForm == true? 'Cerrar':'Ingresar'}}</button>
+  <div class="row">
+    @if (openShowForm) {
+      <div  class="col-6">
+        <app-form
+        (newUserEventEmitter)="addUser($event)"
+        [user]="userSelected"
+        />
+      </div>
+    }
+  </div>
+    <div class="row">
+      <user
+       [users]="users"
+       (idUserEventEmitter)="removeUser($event)"
+       (selectUserEventEmitter)="editUser($event)"/>
+    </div>
+ </div>

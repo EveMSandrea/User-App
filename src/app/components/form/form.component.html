@@ -1,0 +1,75 @@
+<form (ngSubmit)="onSubmit(userForm)" #userForm="ngForm">
+  <div>
+    <input class="form-control my-2" name="name" placeholder="Nombre" [(ngModel)]="user.name" required #name="ngModel">
+    @if (name.invalid && (name.dirty || name.touched)) {
+    @if (name.errors!['required']) {
+    <div class="text-danger">
+      Nombre es requerido
+    </div>
+    }
+    }
+  </div>
+  <div>
+    <input class="form-control my-2" name="lastname" placeholder="Apellido" [(ngModel)]="user.lastname" required
+      #lastname="ngModel">
+    @if (lastname.invalid && (lastname.dirty || lastname.touched)) {
+    @if (lastname.errors!['required']) {
+    <div class="text-danger">
+      Apellido es requerido
+    </div>
+    }
+    }
+  </div>
+  <div>
+    <input type="email" class="form-control my-2" name="email" placeholder="email" [(ngModel)]="user.email" required
+      email #email="ngModel">
+    @if (email.invalid && (email.dirty || email.touched)) {
+    @if (email.errors!['required']) {
+    <div class="text-danger">
+      Email es requerido
+    </div>
+    }
+    @if (email.errors!['email']) {
+    <div class="text-danger">
+      Email no tiene el formato requerido con
+    </div>
+    }
+    }
+  </div>
+  <div>
+    <input class="form-control my-2" name="username" placeholder="Nombre de Usuario" [(ngModel)]="user.username"
+      required minlength="10" #username="ngModel">
+    @if (username.invalid && (username.dirty || username.touched)) {
+    @if (username.errors!['required']) {
+    <div class="text-danger">
+      Nombre de Usuario es requerido
+    </div>
+    }
+    @if (username.errors!['minlength']) {
+    <div class="text-danger">
+      Nombre de Usuario debe tener minimo 10 caracteres
+    </div>
+    }
+    }
+  </div>
+  <div>
+    <input class="form-control my-2" type="password" name="password" placeholder="Password" [(ngModel)]="user.password"
+      required minlength="8" #password="ngModel">
+    @if (password.invalid && (password.dirty || password.touched)) {
+    @if (password.errors!['required']) {
+    <div class="text-danger">
+      El Password es requerido
+    </div>
+    }
+    @if (password.errors!['minlength']) {
+    <div class="text-danger">
+      Password debe tener minimo 8 caracteres
+    </div>
+    }
+    }
+  </div>
+  <div>
+    <button type="submit" class="btn btn-primary m-2" [disabled]="userForm.invalid">{{(user.id > 0)? 'Editar':'Crear' }}</button>
+    <button type="button" class="btn btn-success m-2" (click)="OnClear(userForm)">Limpiar</button>
+  </div>
+</form>

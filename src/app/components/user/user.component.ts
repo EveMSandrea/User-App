@@ -14,18 +14,16 @@ export class UserComponent {
   @Input() users: User[]=[];
 
 // Output es la propiedad que utiliza el Subcomponente para enviar datos al componente principal
- @Output() idUserEventEmitter = new EventEmitter();
- @Output() selectUserEventEmitter = new EventEmitter();
+@Output() idUserEventEmitter = new EventEmitter();
+@Output() selectUserEventEmitter = new EventEmitter();
 // Se declara este metodo para emitir el mensaje al componente padre
- onRemoveUser(id:number): void{
+onRemoveUser(id:number): void{
   const confirmRemove = confirm('Esta seguro que desea eliminar');
   if(confirmRemove){
     this.idUserEventEmitter.emit(id);
   }
- }
- onSelectUser(user : User): void{
+}
+onSelectUser(user : User): void{
   this.selectUserEventEmitter.emit(user);
- }
-
-
+}
 }

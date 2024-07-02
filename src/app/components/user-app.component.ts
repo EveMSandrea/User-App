@@ -18,29 +18,35 @@ export class UserAppComponent  implements OnInit{
   openShowForm: boolean = false;
 // Inicializamos la lista de usuarios
   users: User[] = [];
-//Para seleccionar el usuario y editarlo creamos una instancia de objeto user
+//To select the user and edit it we create an instance of user object
   userSelected : User;
 // invocamos el servicio  service  de tipo UserService en el constructor
   constructor(private service :UserService){
-    this.userSelected = new User(); // Inicializamos
+    this.userSelected = new User();
   }
 // implementamos el metodo OnInit que es un metodo callback o de comunicación
   ngOnInit(): void {
-        this.service.findAll().subscribe(users => this.users = users);
-      }
-// Metodo para agregar a la lista de usuario los elementos manejando el estado de manera inmutable
+    this.service.findAll().subscribe(users => this.users = users);
+}
+// Method to add elements to the user list, managing the state in an immutable way
 addUser(user:User){
 //Condicion que valida el id del usuario y map devuelve el array user con los resultados.
- if(user.id > 0){
-  this.users = this.users.map(usuario => (usuario.id == user.id) ? {...user} : usuario)
- } else{
-   this.users= [...this.users,{...user}];
- }
+if(user.id > 0){
+  this.service.update(user).subscribe(userUpdated =>{
+    this.users = this.users.map(usuario => (usuario.id == userUpdated.id)? {...userUpdated} : usuario);
+})
+} else{
+  this.service.create(user).subscribe(userNew =>{
+    this.users= [...this.users,{...userNew}];
+  })
+}
  this.userSelected = new User(); // Formatea o limpia el formulario
 }
 //Metodo para remover el id,filter devuelve una nueva instancia inmutable,con los elementos del arreglo diferentes al id
 removeUser(id:number):void{
-  this.users = this.users.filter(user => user.id != id);
+  this.service.remove(id).subscribe(()=>{
+    this.users = this.users.filter(user => user.id != id);
+ })
 }
 // Metodo para editar el Usuario del formulario
 editUser(user : User): void{
